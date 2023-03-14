@@ -41,14 +41,12 @@ const AddActions = () => {
     getData();
   }, []);
 
-  const id = data.length + 1;
-
   const { values, handleChange, handleSubmit, resetForm, setValues } =
     useFormik({
       initialValues: {
         action: "",
         description: "",
-        tag: [{ id: "", name: "" }],
+        tag: [{ name: "" }],
         category: "",
       },
       // validationSchema,
@@ -61,8 +59,7 @@ const AddActions = () => {
           },
           data: JSON.stringify({
             ...values,
-            tag: [{ id: id, name: values.tag[0].name }],
-            id: id,
+            tag: { name: values.tag[0].name },
           }),
         })
           .then((response) => {

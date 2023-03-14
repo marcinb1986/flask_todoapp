@@ -7,9 +7,9 @@ import { useFormik } from "formik";
 const initialValues = {
   action: "",
   description: "",
-  tag: [{ id: "", tag: "" }],
+  tag: [{ action_id: "", id: "", name: "" }],
   category: "",
-  persons: [{ name: "", lastName: "" }],
+  persons: [{ id: "", name: "", last_name: "" }],
 };
 
 const GetActions = () => {
@@ -44,7 +44,6 @@ const GetActions = () => {
   const { values, handleSubmit, handleChange, setValues } = useFormik({
     initialValues: data,
     onSubmit: () => {
-      // const payload = { actions: [...values] };
       axios({
         method: "PUT",
         url: "http://localhost:5000/allActions",
@@ -110,8 +109,8 @@ const GetActions = () => {
         onSubmit={handleSubmit}
         style={{ display: "flex", flexDirection: "column" }}
       >
-        {!values[0]?.action && "...Loading"}
-        {values[0]?.action &&
+        {!values[0] && "...Loading"}
+        {values[0] &&
           values.map((element, idx) => {
             return (
               <div
@@ -173,9 +172,11 @@ const GetActions = () => {
                   <TextField
                     variant="outlined"
                     label="tag"
-                    id={`${idx}.tag[${0}].name`}
-                    name={`${idx}.tag[${0}].name`}
-                    value={values[idx]?.tag[0].name}
+                    // id={`${idx}.tag[${0}].name`}
+                    id={`${idx}.tag.name`}
+                    // name={`${idx}.tag[${0}].name`}
+                    name={`${idx}.tag.name`}
+                    value={values[idx]?.tag.name}
                     onChange={(e) => handleChange(e)}
                   />
                 </Box>
@@ -190,7 +191,8 @@ const GetActions = () => {
                   />
                 </Box>
                 {element.persons &&
-                  element.persons.length > 0 &&
+                  // element.persons[0].name.length > 0 &&
+                  // element.persons.name > 0 &&
                   element.persons.map((person, id) => (
                     <Box
                       key={id}
@@ -211,9 +213,9 @@ const GetActions = () => {
                       <TextField
                         variant="outlined"
                         label="last name"
-                        id={`${idx}.persons[${id}].lastName`}
-                        name={`${idx}.persons[${id}].lastName`}
-                        value={values[idx].persons[id].lastName}
+                        id={`${idx}.persons[${id}].last_name`}
+                        name={`${idx}.persons[${id}].last_name`}
+                        value={values[idx].persons[id].last_name}
                         onChange={(e) => handleChange(e)}
                       />
                     </Box>
