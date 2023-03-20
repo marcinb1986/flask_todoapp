@@ -9,12 +9,13 @@ const initialValues = {
   description: "",
   tag: [{ action_id: "", id: "", name: "" }],
   category: "",
-  persons: [{ id: "", name: "", last_name: "" }],
+  persons: [{ id: "", name: "", lastName: "" }],
 };
 
 const GetActions = () => {
   const [data, setData] = useState([initialValues]);
 
+  console.log(data);
   const navigation = useNavigate();
   const goToAllActions = () => {
     navigation("/addActions");
@@ -213,9 +214,9 @@ const GetActions = () => {
                       <TextField
                         variant="outlined"
                         label="last name"
-                        id={`${idx}.persons[${id}].last_name`}
-                        name={`${idx}.persons[${id}].last_name`}
-                        value={values[idx].persons[id].last_name}
+                        id={`${idx}.persons[${id}].lastName`}
+                        name={`${idx}.persons[${id}].lastName`}
+                        value={values[idx].persons[id].lastName}
                         onChange={(e) => handleChange(e)}
                       />
                     </Box>
