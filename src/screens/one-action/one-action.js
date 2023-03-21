@@ -9,7 +9,7 @@ import * as yup from "yup";
 const initialValues = {
   action: "",
   description: "",
-  tag: [{ id: "", name: "" }],
+  tag: { id: "", name: "" },
   category: "",
   persons: [{ name: "", lastName: "" }],
 };
@@ -32,7 +32,7 @@ const OneAction = () => {
       .then((response) => {
         const res = response.data;
         setValues(res);
-        console.log(res);
+        console.log("response:", res);
       })
       .catch((error) => {
         if (error) {
@@ -61,9 +61,7 @@ const OneAction = () => {
       });
     },
   });
-
-  console.log(values?.persons?.length);
-  console.log("values:", values);
+  console.log(values);
 
   const addPersonHandler = () => {
     if (values?.persons?.length > 0) {
@@ -125,9 +123,12 @@ const OneAction = () => {
           <TextField
             variant="outlined"
             label="tag"
-            id={`tag[${0}].name`}
-            name={`tag[${0}].name`}
-            value={values.tag[0].name}
+            id={"tag.name"}
+            name={"tag.name"}
+            value={values.tag.name}
+            // id={`tag[${0}].name`}
+            // name={`tag[${0}].name`}
+            // value={values.tag[0].name}
             onChange={(e) => handleChange(e)}
           />
         </Box>
