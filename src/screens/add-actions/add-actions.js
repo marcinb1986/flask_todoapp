@@ -5,13 +5,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-// const validationSchema = yup.object().shape({
-//   action: yup.string("Enter Your action"),
-//   description: yup.string("Put Your description"),
-//   tag: yup.string("Add Your tag"),
-//   category: yup.string("Add Category"),
-// });
-
 const AddActions = () => {
   const navigation = useNavigate();
 

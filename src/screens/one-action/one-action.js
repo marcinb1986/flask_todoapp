@@ -43,25 +43,25 @@ const OneAction = () => {
 
   const { values, handleSubmit, handleChange, setValues } = useFormik({
     initialValues,
-    onSubmit: () => {
-      console.log(values);
-      axios({
-        method: "PUT",
-        url: `http://127.0.0.1:5000/action/${actionId}`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify({
-          ...values,
-          // id: actionId,
-          // tag: [{ id: actionId, name: values[0].name }],
-        }),
-      }).then((response) => {
+    onSubmit: async () => {
+      console.log("values");
+      try {
+        const response = await axios({
+          method: "PUT",
+          url: `http://127.0.0.1:5000/action/${actionId}`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({
+            ...values,
+          }),
+        });
         console.log(response);
-      });
+      } catch (error) {
+        console.log(error.response);
+      }
     },
   });
-  console.log(values);
 
   const addPersonHandler = () => {
     if (values?.persons?.length > 0) {
@@ -126,9 +126,6 @@ const OneAction = () => {
             id={"tag.name"}
             name={"tag.name"}
             value={values.tag.name}
-            // id={`tag[${0}].name`}
-            // name={`tag[${0}].name`}
-            // value={values.tag[0].name}
             onChange={(e) => handleChange(e)}
           />
         </Box>
