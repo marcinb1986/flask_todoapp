@@ -20,6 +20,9 @@ const GetActions = () => {
   const goToAllActions = () => {
     navigation("/addActions");
   };
+  const logoutHandler = () => {
+    navigation("/login");
+  };
   const getData = () => {
     axios({
       method: "GET",
@@ -97,6 +100,14 @@ const GetActions = () => {
   console.log("values", values);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
+      <Button
+        color="error"
+        variant="contained"
+        onClick={() => logoutHandler()}
+        sx={{ margin: "30px", width: "300px" }}
+      >
+        Logout
+      </Button>
       <Button
         color="primary"
         variant="contained"

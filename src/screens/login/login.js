@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Box, Typography, Button, TextField, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userData, setUserData] = useState({
     userName: "",
     password: "",
@@ -14,12 +15,37 @@ const Login = () => {
   const navigation = useNavigate();
 
   const LogInHandler = () => {
-    console.log("login");
+    axios({
+      method: "POST",
+      url: "http://127.0.0.1:5000/login",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(userData),
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
     navigation("/getActions");
   };
 
   const RegisterHandler = () => {
     console.log("register");
+    axios({
+      method: "POST",
+      url: "http://localhost:5000/register",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify(userData),
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
     navigation("/getActions");
   };
   return (
@@ -37,8 +63,11 @@ const Login = () => {
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ margin: "10px" }}>Please Log in</Typography>
-        {isLoggedIn && <Typography>Please Register</Typography>}
+        {isLoggedIn ? (
+          <Typography>Please Register</Typography>
+        ) : (
+          <Typography sx={{ margin: "10px" }}>Please Log in</Typography>
+        )}
         <TextField
           value={userData.userName}
           label="Type username"
@@ -57,9 +86,10 @@ const Login = () => {
           placeholder="Password"
         ></TextField>
         <Box sx={{ marginTop: "50px" }}>
-          <Button onClick={() => LogInHandler()}>Log in</Button>
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <Button onClick={() => RegisterHandler()}>Register</Button>
+          ) : (
+            <Button onClick={() => LogInHandler()}>Log in</Button>
           )}
         </Box>
       </Box>
